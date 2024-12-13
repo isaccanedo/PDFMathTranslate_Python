@@ -1,0 +1,24 @@
+FROM python:3.12
+
+WORKDIR /app
+
+COPY . .
+
+EXPOSE 7860
+
+ENV PYTHONUNBUFFERED=1
+
+RUN apt-get update && apt-get install -y libgl1
+
+RUN pip install .
+
+RUN mkdir -p /data
+RUN chmod 777 /data
+RUN mkdir -p /app
+RUN chmod 777 /app
+RUN mkdir -p /.cache
+RUN chmod 777 /.cache
+RUN mkdir -p ./gradio_files
+RUN chmod 777 ./gradio_files
+
+CMD ["pdf2zh", "-i"]
